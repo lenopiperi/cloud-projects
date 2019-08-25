@@ -40,4 +40,4 @@ def get(self):
 	  self.tmp_filenames_to_clean_up.append(filename)
 
   if __name__ == '__main__':
-  	create_file("my-first-file")
+  	app.run()
