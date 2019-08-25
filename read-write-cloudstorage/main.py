@@ -1,6 +1,6 @@
 import logging
 import os
-import sys
+from app import app
 import cloudstorage as gcs
 import webapp2
 
