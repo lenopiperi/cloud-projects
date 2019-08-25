@@ -14,7 +14,8 @@
 
 # [START gae_python37_app]
 from flask import Flask
-import cloudstorage
+from google.cloud import storage
+# import cloudstorage does not work if the google-cloud-storage package is installed
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
