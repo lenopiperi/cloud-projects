@@ -1,6 +1,7 @@
 import logging
 import os
-import cloudstorage as gcs
+import sys
+from lib import cloudstorage as gcs
 import webapp2
 
 from google.appengine.api import app_identity
@@ -39,4 +40,4 @@ def get(self):
 	  self.tmp_filenames_to_clean_up.append(filename)
 
   if __name__ == '__main__':
-  	main()
+  	create_file("my-first-file")
