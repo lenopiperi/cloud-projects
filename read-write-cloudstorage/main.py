@@ -21,10 +21,6 @@ from google.cloud import storage
 # called `app` in `main.py`.
 app = Flask(__name__)
 
-bucket_name = 'reading-writing-cloud-storage.appspot.com'
-source_file_name = 'source-file.txt'
-destination_blob_name = 'app-uploads'
-
 
 # @app.route('/')
 # def hello():
@@ -32,7 +28,11 @@ destination_blob_name = 'app-uploads'
 
 
 @app.route('/')
-def upload_blob(bucket_name, source_file_name, destination_blob_name):
+def upload_blob():
+
+	bucket_name = 'reading-writing-cloud-storage.appspot.com'
+	source_file_name = 'source-file.txt'
+	destination_blob_name = 'app-uploads'
     """Uploads a file to the bucket."""
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(bucket_name)
