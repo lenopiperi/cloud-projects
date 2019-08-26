@@ -26,9 +26,9 @@ source_file_name = 'source-file.txt'
 destination_blob_name = 'app-uploads'
 
 
-@app.route('/')
-def hello():
-	return 'Hello World!'
+# @app.route('/')
+# def hello():
+# 	return 'Hello World!'
 
 
 @app.route('/')
