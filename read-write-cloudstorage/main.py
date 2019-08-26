@@ -28,11 +28,10 @@ filename = bucket + '/demo-testfile.txt'
 
 @app.route('/')
 def hello():
-    """Return a friendly HTTP greeting."""
+# """Return a friendly HTTP greeting."""
 	f= open(filename,"w+")
 	f.write("zero chance this works..")
 	f.close()
-	
     return 'Hello World!'
 
 
