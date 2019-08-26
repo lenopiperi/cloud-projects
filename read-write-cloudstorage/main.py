@@ -22,17 +22,25 @@ from google.cloud import storage
 app = Flask(__name__)
 
 bucket_name = 'reading-writing-cloud-storage.appspot.com'
-bucket = '/' + bucket_name
-filename = bucket + '/demo-testfile.txt'
+source_file_name = 'source-file.txt'
+destination_blob_name = '/'
 
 
 @app.route('/')
 def hello():
-# """Return a friendly HTTP greeting."""
-	f= open(filename,"w+")
-	f.write("zero chance this works..")
-	f.close()
 	return 'Hello World!'
+
+def upload_blob(bucket_name, source_file_name, destination_blob_name):
+    """Uploads a file to the bucket."""
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+
+    blob.upload_from_filename(source_file_name)
+
+    print('File {} uploaded to {}.'.format(
+        source_file_name,
+        destination_blob_name))
 
 
 
