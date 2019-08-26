@@ -33,7 +33,6 @@ def upload_blob():
 	bucket_name = 'reading-writing-cloud-storage.appspot.com'
 	source_file_name = 'source-file.txt'
 	destination_blob_name = 'app-uploads'
-    """Uploads a file to the bucket."""
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
