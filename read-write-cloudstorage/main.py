@@ -13,20 +13,28 @@
 # limitations under the License.
 
 # [START gae_python37_app]
+import os
 from flask import Flask
 from google.cloud import storage
-# import cloudstorage does not work if the google-cloud-storage package is installed
-
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = Flask(__name__)
 
+bucket_name = 'reading-writing-cloud-storage.appspot.com'
+bucket = '/' + bucket_name
+filename = bucket + '/demo-testfile.txt'
+
 
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
+	f= open(filename,"w+")
+	f.write("zero chance this works..")
+	f.close()
+	
     return 'Hello World!'
+
 
 
 if __name__ == '__main__':
