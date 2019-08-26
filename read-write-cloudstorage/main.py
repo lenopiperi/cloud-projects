@@ -42,6 +42,7 @@ def upload_blob():
 	print('File {} uploaded to {}.'.format(
     	source_file_name,
     	destination_blob_name))
+	return 'check your bucket!!!'
 
 
 
