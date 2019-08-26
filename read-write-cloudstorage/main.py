@@ -23,7 +23,7 @@ app = Flask(__name__)
 
 bucket_name = 'reading-writing-cloud-storage.appspot.com'
 source_file_name = 'source-file.txt'
-destination_blob_name = '/'
+destination_blob_name = 'app-uploads'
 
 
 @app.route('/')
