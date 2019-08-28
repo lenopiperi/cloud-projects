@@ -16,6 +16,8 @@
 import os
 from flask import Flask
 from google.cloud import storage
+from flask import Flask, flash, request, redirect, url_for
+from werkzeug.utils import secure_filename
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
@@ -26,23 +28,51 @@ app = Flask(__name__)
 # def hello():
 # 	return 'Hello World!'
 
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
-@app.route('/')
-def upload_blob():
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def upload_blob(submitted_file):
 
 	bucket_name = 'reading-writing-cloud-storage.appspot.com'
-	source_file_name = 'source-file.txt'
-	destination_blob_name = 'app-uploads'
+	# source_file_name = 'source-file.txt'
+	# destination_blob_name = submitted_file.name
 	storage_client = storage.Client()
 	bucket = storage_client.get_bucket(bucket_name)
-	blob = bucket.blob(destination_blob_name)
-
-	blob.upload_from_filename(source_file_name)
-
-	print('File {} uploaded to {}.'.format(
-    	source_file_name,
-    	destination_blob_name))
+	blob = bucket.blob(submitted_file.name)
+	blob.upload_from_file(submitted_file)
 	return 'check your bucket!!!'
+
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            upload_blob(file)
+            # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file',
+                                    filename=filename))
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <input type=submit value=Upload>
+    </form>
+    '''
 
 
 
