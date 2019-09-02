@@ -24,10 +24,6 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 
-# @app.route('/')
-# def hello():
-# 	return 'Hello World!'
-
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
@@ -36,12 +32,10 @@ def allowed_file(filename):
 
 def upload_blob(submitted_file):
 
-	bucket_name = 'reading-writing-cloud-storage.appspot.com'
-	# source_file_name = 'source-file.txt'
-	# destination_blob_name = submitted_file.name
+	bucket_name = 'reading-writing-cloud-storage.appspot.com' #enhancement idea: get this value from the environment
 	storage_client = storage.Client()
 	bucket = storage_client.get_bucket(bucket_name)
-	blob = bucket.blob(submitted_file.name)
+	blob = bucket.blob('sample blob name') #bug
 	blob.upload_from_file(submitted_file)
 	return 'check your bucket!!!'
 
@@ -62,8 +56,8 @@ def upload_file():
             filename = secure_filename(file.filename)
             upload_blob(file)
             # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+            return 'Your file has been uploaded' #enhancement idea: redirect to your uploaded file either through a link or buy opening the uploaded file
+
     return '''
     <!doctype html>
     <title>Upload new File</title>
