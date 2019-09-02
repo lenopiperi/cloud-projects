@@ -30,13 +30,13 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def upload_blob(submitted_file):
+def upload_blob(file, filename):
 
 	bucket_name = 'reading-writing-cloud-storage.appspot.com' #enhancement idea: get this value from the environment
 	storage_client = storage.Client()
 	bucket = storage_client.get_bucket(bucket_name)
-	blob = bucket.blob(submitted_file.basename) #bug
-	blob.upload_from_file(submitted_file)
+	blob = bucket.blob(filename) #bug
+	blob.upload_from_file(file)
 	return 'check your bucket!!!'
 
 @app.route('/', methods=['GET', 'POST'])
@@ -54,7 +54,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            upload_blob(file)
+            upload_blob(file, filename)
             # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return 'Your file has been uploaded' #enhancement idea: redirect to your uploaded file either through a link or buy opening the uploaded file
 
