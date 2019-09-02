@@ -35,7 +35,7 @@ def upload_blob(submitted_file):
 	bucket_name = 'reading-writing-cloud-storage.appspot.com' #enhancement idea: get this value from the environment
 	storage_client = storage.Client()
 	bucket = storage_client.get_bucket(bucket_name)
-	blob = bucket.blob('sample blob name') #bug
+	blob = bucket.blob(submitted_file.basename) #bug
 	blob.upload_from_file(submitted_file)
 	return 'check your bucket!!!'
 
