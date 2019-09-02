@@ -1,9 +1,8 @@
 # Copyright 2018 Google LLC
 
 import os
-from flask import Flask
 from google.cloud import storage
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
@@ -46,7 +45,7 @@ def upload_file():
             return 'Your file has been uploaded' #enhancement idea: redirect to your uploaded file either through a link or buy opening the uploaded file
             #add way to submit a new file
 
-    return form.html
+    return render_template('form.html')
 
 
 
