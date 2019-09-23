@@ -1,0 +1,6 @@
+root - DEBUG - manipute-userPhoto called
+root - DEBUG - newFilename = userPhoto-1569200723962
+root - DEBUG - newFilename = updated-userPhoto-1569200723962
+root - DEBUG - source = ./uploads/userPhoto-1569200723962
+root - DEBUG - target = ./mod-images/updated-userPhoto-1569200723962
+root - DEBUG - manipute-userPhoto complete
